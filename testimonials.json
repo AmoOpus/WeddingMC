@@ -1,0 +1,65 @@
+[
+  {
+    "id": "mc-1",
+    "image": "assets/images/mc-1.jpg",
+    "look": "Rust Windowpane Blazer",
+    "alt": "Andrew Mo in a rust windowpane check blazer speaking into a microphone at an outdoor marquee wedding",
+    "quote": "Thanks for helping us make the best memories!!",
+    "author": "@_jenclimbs_",
+    "rating": 5
+  },
+  {
+    "id": "mc-2",
+    "image": "assets/images/mc-2.jpg",
+    "look": "Burgundy Velvet Tuxedo",
+    "alt": "Andrew Mo in a burgundy velvet tuxedo and black bow tie, mic in hand on the dance floor",
+    "quote": "YOU'RE a blessing! Thanks for being THE BEST MC!",
+    "author": "@mingy14",
+    "rating": 5
+  },
+  {
+    "id": "mc-3",
+    "image": "assets/images/mc-3.jpg",
+    "look": "Camel Check Blazer",
+    "alt": "Andrew Mo in a camel check blazer and dark tie, speaking into a microphone at night",
+    "quote": "Thanks for all your help that day A Mo!",
+    "author": "@renelaguilar",
+    "rating": 5
+  },
+  {
+    "id": "mc-4",
+    "image": "assets/images/mc-4.jpg",
+    "look": "Sand Linen Blazer",
+    "alt": "Andrew Mo in a sand-toned linen blazer speaking into a microphone in front of a brick wall",
+    "quote": "Best MC thank you MO",
+    "author": "@Shirlayfuu",
+    "rating": 5
+  },
+  {
+    "id": "mc-5",
+    "image": "assets/images/mc-5.jpg",
+    "look": "Burgundy Velvet, Up Close",
+    "alt": "Close-up of Andrew Mo laughing mid-sentence into a microphone, wearing a burgundy velvet jacket",
+    "quote": "Cracker MC!!!",
+    "author": "@Jayli28_",
+    "rating": 5
+  },
+  {
+    "id": "mc-6",
+    "image": "assets/images/mc-6.jpg",
+    "look": "Sky Blue Blazer",
+    "alt": "Andrew Mo in a sky blue blazer speaking into a microphone in front of a wall of books",
+    "quote": "The best MC!!",
+    "author": "@reginacelee",
+    "rating": 5
+  },
+  {
+    "id": "mc-7",
+    "image": "assets/images/mc-7.jpg",
+    "look": "Black Shirt, No Jacket",
+    "alt": "Andrew Mo in a black shirt speaking into a microphone in front of a neon sign backdrop",
+    "quote": "He's actually funnier than he looks",
+    "author": "Random stranger",
+    "rating": 5
+  }
+]
