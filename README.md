@@ -84,5 +84,5 @@ If you'd rather have full control over email delivery (custom subject logic, no 
 - **Copy:** edit directly in `index.html`.
 - **Testimonials / ratings / images used in the carousel:** edit `testimonials.json`, and update `FALLBACK_TESTIMONIALS` in `script.js` to match.
 - **Colours, type, spacing, breakpoints:** CSS custom properties at the top of `styles.css` (`:root { ... }`), plus the two `@media` blocks near the bottom.
-- **Parallax section photos:** `.parallax-photo .parallax-bg` and `.parallax-photo--ceremony .parallax-bg` in `styles.css` point at `assets/images/hero-photo.jpg` and `assets/images/parallax-2.jpg` respectively.
+- **Parallax section photos:** three full-bleed bands use `.parallax-photo--groomsmen`, `.parallax-photo--tent`, and `.parallax-photo--cheering` in `styles.css`, pointing at `assets/images/parallax-groomsmen.jpg`, `parallax-tent.jpg`, and `parallax-cheering.jpg` respectively.
 - **Enquiry form destination:** the `action` attribute on `#contactForm` in `index.html` (see "The enquiry form" above).

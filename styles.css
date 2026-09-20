@@ -290,9 +290,7 @@ img { max-width: 100%; display: block; }
   left: 0;
   right: 0;
   height: 130%;
-  background-image: url('assets/images/hero-photo.jpg');
   background-size: cover;
-  background-position: 30% 35%;
   will-change: transform;
 }
 .parallax-photo::after {
@@ -302,9 +300,19 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(180deg, rgba(15, 11, 9, 0.06) 0%, rgba(15, 11, 9, 0.18) 100%);
 }
 
-.parallax-photo--ceremony .parallax-bg {
-  background-image: url('assets/images/parallax-2.jpg');
+.parallax-photo--groomsmen .parallax-bg {
+  background-image: url('assets/images/parallax-groomsmen.jpg');
   background-position: center 25%;
+}
+
+.parallax-photo--tent .parallax-bg {
+  background-image: url('assets/images/parallax-tent.jpg');
+  background-position: 30% 35%;
+}
+
+.parallax-photo--cheering .parallax-bg {
+  background-image: url('assets/images/parallax-cheering.jpg');
+  background-position: 25% 12%;
 }
 
 .contact-section {
