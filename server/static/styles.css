@@ -225,7 +225,7 @@ img { max-width: 100%; display: block; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(60% 60% at 50% 0%, rgba(21, 17, 14, 0.16) 0%, rgba(21, 17, 14, 0.4) 60%, rgba(21, 17, 14, 0.58) 100%);
+    radial-gradient(60% 60% at 50% 0%, rgba(21, 17, 14, 0.16) 0%, rgba(21, 17, 14, 0.34) 60%, rgba(21, 17, 14, 0.5) 100%);
   z-index: 1;
 }
 .hero-inner {
