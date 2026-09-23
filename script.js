@@ -358,9 +358,164 @@
     items.forEach(function (el) { observer.observe(el); });
   }
 
+  function setupVendorCarousel() {
+    var root = document.querySelector(".vendors-section");
+    if (!root) return;
+
+    var track = root.querySelector(".vendors-track");
+    var viewport = root.querySelector(".vendors-viewport");
+    var cards = Array.prototype.slice.call(root.querySelectorAll(".vendor-card"));
+    var prev = root.querySelector(".vendors-arrow-prev");
+    var next = root.querySelector(".vendors-arrow-next");
+    var progress = root.querySelector(".vendors-progress span");
+    var dots = root.querySelector(".vendors-dots");
+    var count = root.querySelector(".vendors-count");
+    if (!track || !viewport || !cards.length || !prev || !next || !progress || !dots || !count) return;
+
+    var current = 0;
+    var visible = 4;
+    var timer = null;
+    var paused = false;
+    var pageCount = 0;
+    var pointerStartX = 0;
+    var pointerId = null;
+    var suppressClick = false;
+
+    function visibleCount() {
+      if (window.innerWidth <= 640) return 1;
+      if (window.innerWidth <= 900) return 2;
+      if (window.innerWidth <= 1100) return 3;
+      return 4;
+    }
+
+    function maxIndex() {
+      return Math.max(0, cards.length - visible);
+    }
+
+    function pad(n) {
+      return (n < 10 ? "0" : "") + n;
+    }
+
+    function renderDots() {
+      var nextPageCount = Math.ceil(cards.length / visible);
+      if (nextPageCount === pageCount && dots.children.length === nextPageCount) return;
+      pageCount = nextPageCount;
+      dots.innerHTML = "";
+      var i;
+      for (i = 0; i < pageCount; i++) {
+        var dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "vendors-dot";
+        dot.dataset.page = String(i);
+        dot.setAttribute("aria-label", "Show vendor page " + (i + 1));
+        dot.addEventListener("click", function () {
+          current = Math.min(Number(this.dataset.page) * visible, maxIndex());
+          update();
+          restart();
+        });
+        dots.appendChild(dot);
+      }
+    }
+
+    function update() {
+      visible = visibleCount();
+      var width = cards[0].getBoundingClientRect().width;
+      var styles = window.getComputedStyle(track);
+      var gap = parseFloat(styles.columnGap || styles.gap) || 0;
+      if (current > maxIndex()) current = maxIndex();
+      if (current < 0) current = 0;
+      track.style.transform = "translateX(-" + (current * (width + gap)) + "px)";
+
+      renderDots();
+      var activePage = Math.floor(current / visible);
+      var dotButtons = dots.querySelectorAll(".vendors-dot");
+      var i;
+      for (i = 0; i < dotButtons.length; i++) {
+        var on = i === activePage;
+        dotButtons[i].classList.toggle("is-active", on);
+        if (on) dotButtons[i].setAttribute("aria-current", "true");
+        else dotButtons[i].removeAttribute("aria-current");
+      }
+
+      count.textContent = pad(current + 1) + " / " + pad(cards.length);
+      progress.style.width = ((Math.min(cards.length, current + visible) / cards.length) * 100) + "%";
+      prev.disabled = current === 0;
+      next.disabled = current === maxIndex();
+    }
+
+    function goNext() {
+      current = current >= maxIndex() ? 0 : current + 1;
+      update();
+    }
+
+    function goPrev() {
+      current = current <= 0 ? maxIndex() : current - 1;
+      update();
+      restart();
+    }
+
+    function start() {
+      if (timer) clearInterval(timer);
+      timer = null;
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+      timer = setInterval(function () {
+        if (!paused) goNext();
+      }, 5000);
+    }
+
+    function restart() {
+      start();
+    }
+
+    root.addEventListener("mouseenter", function () { paused = true; });
+    root.addEventListener("mouseleave", function () { paused = false; });
+    root.addEventListener("focusin", function () { paused = true; });
+    root.addEventListener("focusout", function (event) {
+      if (!root.contains(event.relatedTarget)) paused = false;
+    });
+
+    prev.addEventListener("click", goPrev);
+    next.addEventListener("click", function () {
+      goNext();
+      restart();
+    });
+
+    viewport.addEventListener("pointerdown", function (event) {
+      if (event.pointerType === "mouse") return;
+      pointerStartX = event.clientX;
+      pointerId = event.pointerId;
+    });
+    viewport.addEventListener("pointerup", function (event) {
+      if (pointerId !== event.pointerId) return;
+      var dx = event.clientX - pointerStartX;
+      pointerId = null;
+      if (Math.abs(dx) < 48) return;
+      suppressClick = true;
+      if (dx < 0) {
+        goNext();
+        restart();
+      } else {
+        goPrev();
+      }
+    });
+    viewport.addEventListener("click", function (event) {
+      if (!suppressClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClick = false;
+    }, true);
+    viewport.addEventListener("pointercancel", function () { pointerId = null; });
+
+    window.addEventListener("resize", update);
+    update();
+    start();
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     loadTestimonials();
     setupCarouselButtons();
+    setupVendorCarousel();
     setupContactForm();
     setupParallaxLayers();
     setupScrollReveal();
