@@ -13,6 +13,14 @@
 (function () {
   "use strict";
 
+  // Fire a GA4 event if gtag is loaded; no-op (and never throws) otherwise,
+  // so tracking can never break the page for a visitor with an ad-blocker.
+  function trackEvent(name, params) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", name, params || {});
+    }
+  }
+
   // Fallback copy of testimonials.json, kept in sync with that file.
   // Used only if fetch() fails (most commonly because the page was
   // opened directly from disk rather than served over http/https).
@@ -194,10 +202,12 @@
     prevBtn.addEventListener("click", function () {
       stopAutoplay();
       track.scrollBy({ left: -scrollAmount() * 2, behavior: "smooth" });
+      trackEvent("testimonial_carousel_nav", { control: "prev" });
     });
     nextBtn.addEventListener("click", function () {
       stopAutoplay();
       track.scrollBy({ left: scrollAmount() * 2, behavior: "smooth" });
+      trackEvent("testimonial_carousel_nav", { control: "next" });
     });
   }
 
@@ -372,6 +382,24 @@
     var count = root.querySelector(".vendors-count");
     if (!track || !viewport || !cards.length || !prev || !next || !progress || !dots || !count) return;
 
+    // Click-through tracking: one delegated listener catches every vendor
+    // Instagram handle and website link, however many cards there are.
+    track.addEventListener("click", function (event) {
+      var link = event.target.closest("a");
+      if (!link || !track.contains(link)) return;
+      var card = link.closest(".vendor-card");
+      if (!card) return;
+      var nameEl = card.querySelector("p");
+      var vendorName = nameEl ? nameEl.textContent.trim() : "unknown";
+      var linkType = link.classList.contains("vendor-handle") ? "instagram" : "website";
+      trackEvent("vendor_link_click", {
+        vendor_name: vendorName,
+        link_type: linkType,
+        link_url: link.href
+      });
+    });
+
+
     var current = 0;
     var visible = 4;
     var timer = null;
@@ -412,6 +440,7 @@
           current = Math.min(Number(this.dataset.page) * visible, maxIndex());
           update();
           restart();
+          trackEvent("vendor_carousel_nav", { control: "dot", page: Number(this.dataset.page) + 1 });
         });
         dots.appendChild(dot);
       }
@@ -475,10 +504,14 @@
       if (!root.contains(event.relatedTarget)) paused = false;
     });
 
-    prev.addEventListener("click", goPrev);
+    prev.addEventListener("click", function () {
+      goPrev();
+      trackEvent("vendor_carousel_nav", { control: "prev" });
+    });
     next.addEventListener("click", function () {
       goNext();
       restart();
+      trackEvent("vendor_carousel_nav", { control: "next" });
     });
 
     viewport.addEventListener("pointerdown", function (event) {
@@ -495,8 +528,10 @@
       if (dx < 0) {
         goNext();
         restart();
+        trackEvent("vendor_carousel_nav", { control: "swipe", direction: "next" });
       } else {
         goPrev();
+        trackEvent("vendor_carousel_nav", { control: "swipe", direction: "prev" });
       }
     });
     viewport.addEventListener("click", function (event) {
