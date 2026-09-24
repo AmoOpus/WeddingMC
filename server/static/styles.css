@@ -637,6 +637,16 @@ img { max-width: 100%; display: block; }
   height: 100%;
   width: 100%;
   object-fit: cover;
+  transition: transform 0.4s var(--ease);
+}
+.vendor-image-link {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.vendor-image-link:hover img,
+.vendor-image-link:focus-visible img {
+  transform: scale(1.045);
 }
 .vendor-image-bordeaux { background: linear-gradient(145deg, #6A3E46, #2A2118); }
 .vendor-image-olive { background: linear-gradient(145deg, #6E624C, #3A3328); }

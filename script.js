@@ -391,7 +391,7 @@
       if (!card) return;
       var nameEl = card.querySelector("p");
       var vendorName = nameEl ? nameEl.textContent.trim() : "unknown";
-      var linkType = link.classList.contains("vendor-handle") ? "instagram" : "website";
+      var linkType = link.dataset.linkType || (link.classList.contains("vendor-handle") ? "instagram" : "website");
       trackEvent("vendor_link_click", {
         vendor_name: vendorName,
         link_type: linkType,
