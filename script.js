@@ -132,7 +132,7 @@
     li.innerHTML =
       '<div class="tile-inner">' +
         '<div class="tile-face tile-front">' +
-          '<img src="' + item.image + '" alt="' + item.alt + '" loading="lazy">' +
+          '<img src="' + item.image + '" alt="' + item.alt + '" loading="lazy" width="640" height="920">' +
         "</div>" +
         '<div class="tile-face tile-back" aria-hidden="true">' +
           '<div class="tile-back-bg" style="background-image:url(\'' + item.image + '\')"></div>' +
