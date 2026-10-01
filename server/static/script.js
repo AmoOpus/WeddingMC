@@ -39,7 +39,7 @@
       image: "assets/images/mc-2.jpg",
       look: "Burgundy Velvet Tuxedo",
       alt: "Andrew Mo in a burgundy velvet tuxedo and black bow tie, mic in hand on the dance floor",
-      quote: "YOU'RE a blessing! Thanks for being THE BEST MC!",
+      quote: "We couldn\u2019t have asked for a better MC for our wedding! Andrew created an incredible energy in the room all night while keeping everyone entertained and laughing. Both friends and family raved about him as he was funny, charismatic and incredibly well-spoken, but above all, incredibly organised and prepared.",
       author: "@mingy14",
       rating: 5
     },
@@ -389,8 +389,7 @@
       if (!link || !track.contains(link)) return;
       var card = link.closest(".vendor-card");
       if (!card) return;
-      var nameEl = card.querySelector("p");
-      var vendorName = nameEl ? nameEl.textContent.trim() : "unknown";
+      var vendorName = card.dataset.vendorName || "unknown";
       var linkType = link.dataset.linkType || (link.classList.contains("vendor-handle") ? "instagram" : "website");
       trackEvent("vendor_link_click", {
         vendor_name: vendorName,

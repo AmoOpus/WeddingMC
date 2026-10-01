@@ -640,8 +640,10 @@ img { max-width: 100%; display: block; }
   transition: transform 0.4s var(--ease);
 }
 .vendor-image-link {
-  display: block;
+  align-items: center;
+  display: flex;
   height: 100%;
+  justify-content: center;
   width: 100%;
 }
 .vendor-image-link:hover img,

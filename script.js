@@ -389,8 +389,7 @@
       if (!link || !track.contains(link)) return;
       var card = link.closest(".vendor-card");
       if (!card) return;
-      var nameEl = card.querySelector("p");
-      var vendorName = nameEl ? nameEl.textContent.trim() : "unknown";
+      var vendorName = card.dataset.vendorName || "unknown";
       var linkType = link.dataset.linkType || (link.classList.contains("vendor-handle") ? "instagram" : "website");
       trackEvent("vendor_link_click", {
         vendor_name: vendorName,
